@@ -1,0 +1,20 @@
+{{ ansible_managed | comment }}
+
+[NetDev]
+Name = {{ interface_name }}
+Kind = wireguard
+Description = Wireguard for {{ interface_name }}
+
+[WireGuard]
+PrivateKey = {{ lookup('pipe', 'ansible-vault decrypt --output=-' + peer_params.private_key ) }}
+
+[WireGuardPeer]
+PublicKey = {{ lookup('pipe', 'ansible-vault decrypt --output=-' + peer_params.public_key ) }}
+AllowedIPs = {{ peer.allowed_ips | join(', ') }}
+{%- if peer_params.preshared_key is defined -%}
+PresharedKey = {{ lookup('pipe', 'ansible-vault decrypt --output=-' + peer_params.preshared_key ) }}
+{% endif %}
+Endpoint = {{ server_params.address }}:{{ server_params.port }}
+{%- if peer_params.persistent_keepalive is defined -%}
+PersistentKeepalive = {{ peer_params.persistent_keepalive }}
+{% endif %}

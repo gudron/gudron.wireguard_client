@@ -1,0 +1,8 @@
+---
+- name: Inlcude tasks
+  include_tasks: "{{ task_name }}"
+  loop:
+    - install.yml
+    - create_configs.yml
+  loop_control:
+    loop_var: task_name

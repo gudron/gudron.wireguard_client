@@ -1,0 +1,21 @@
+- name: Inlcude tasks
+  include_tasks: create_config/create_config.yaml
+  vars:
+    interface_name: "{{ interface.key }}"
+    server_params: "{{ interface.value.server_params }}"
+    peer_params: "{{ interface.value.peer_params }}"
+  loop: "{{ interfaces | dict2items }}"
+  loop_control:
+    loop_var: interface
+  when: boot_via == 'manual'
+
+- name: Inlcude tasks
+  include_tasks: create_config/systemd.yaml
+  vars:
+    interface_name: "{{ interface.key }}"
+    server_params: "{{ interface.value }}"
+    peer_params: "{{ interface.value.peer_params }}"
+  loop: "{{ interfaces | dict2items }}"
+  loop_control:
+    loop_var: interface
+  when: boot_via == 'systemd'

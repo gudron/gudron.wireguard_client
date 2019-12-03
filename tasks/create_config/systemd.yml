@@ -1,0 +1,12 @@
+---
+- name: "Prepare wireguard interface {{ interface_name}} systemd device config"
+  template:
+    src: "templates/etc/systemd/conf.netdev.j2"
+    dest: "/etc/systemd/network/99-wireguard-{{ interface_name}}.netdev"
+    mode: "u=rw,g=r"
+
+- name: "Prepare wireguard interface {{ interface_name}} systemd network config"
+  template:
+    src: "templates/etc/systemd/conf.netword.j2"
+    dest: "/etc/systemd/network/99-wireguard-{{ interface_name}}.network"
+    mode: "u=rw,g=r"

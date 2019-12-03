@@ -1,0 +1,10 @@
+{{ ansible_managed | comment }}
+
+[Match]
+Name = {{ interface_name }}
+
+[Network]
+Address = {{ peer_params.address }}/{{ peer_params.mask }}
+{%- if server_params.dns_address is defined -%}
+DNS = {{ server_params.dns_address }}
+{% endif %}
