@@ -1,7 +1,7 @@
 gudron.wireguard_client
 =======================
 
-Role install wireguad and create client config.
+Ansible role for install wireguad and create client config
 
 Instalation
 -----------
