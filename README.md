@@ -1,38 +1,68 @@
-Role Name
-=========
+gudron.wireguard_client
+=======================
 
-A brief description of the role goes here.
+Role install wireguad and create client config.
 
-Requirements
-------------
+Instalation
+-----------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Add **gudron.wireguard_client** role to your *requirements* file.
 
-Role Variables
---------------
+```yaml
+  - src: git@github.com:gudron/gudron.wireguard_client.git
+    scm: git
+    version: master
+```
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Install roles via **ansible-galaxy** tool.
 
-Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+```bash
+ansible-galaxy install -p roles -r requirements.yml
+```
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+    - hosts: example_vpn_server
+      any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+      gather_facts: yes
 
-    - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+        - name: gudron.wireguard_client
+          vars: 
+            boot_via: systemd
+            interfaces:
+              wg0:
+                server_params:
+                  address: 10.8.0.1
+                  mask: 24
+                  port: 51820
+                  save_config: true
+                peer_params:
+                  address: 10.8.0.2
+                  mask: 24
+                  private_key: /path/to/private/key
+                  public_key: /path/to/public/key
+                  preshared_key: /path/to/preshared/key
+                  allowed_ips:
+                    - 10.8.0.2/32
+
+              wg1:
+                server_params:
+                  address: 10.8.0.1
+                  mask: 24
+                  port: 51820
+                  save_config: true
+                peer_params:
+                  address: 10.8.0.3
+                  mask: 24
+                  private_key: /path/to/private/key
+                  public_key: /path/to/public/key
+                  preshared_key: /path/to/preshared/key
+                  allowed_ips:
+                    - 10.8.0.3/32
 
 License
 -------
 
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Apache 2.0
