@@ -7,7 +7,6 @@ interfaces:
       address: 10.8.0.1
       mask: 24
       port: 51820
-      save_config: true
 
     peer_params:
       address: 10.8.0.2
@@ -15,16 +14,12 @@ interfaces:
       private_key: /path/to/private/key
       public_key: /path/to/public/key
       preshared_key: /path/to/preshared/key
-      allowed_ips:
-        - 10.8.0.2/32
-
 
   wg1:
     server_params:
       address: 10.8.0.1
       mask: 24
       port: 51820
-      save_config: true
 
     peer_params:
       address: 10.8.0.3
@@ -32,5 +27,3 @@ interfaces:
       private_key: /path/to/private/key
       public_key: /path/to/public/key
       preshared_key: /path/to/preshared/key
-      allowed_ips:
-        - 10.8.0.3/32

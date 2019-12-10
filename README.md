@@ -3,6 +3,45 @@ gudron.wireguard_client
 
 Ansible role for install wireguad and create client config
 
+Role Variables
+--------------
+
+### General variables
+  * `boot_via: string`
+    Startup wireguard via init system. Supported `systemd`, `interfaces`, `manual`
+    
+  * `interfaces: dict` 
+    The dictionary with wireguard network interfaces. Like `wg0`, `wg1`.
+
+    * `server_params: dict` 
+      Parameters of wireguard server.
+      
+      * `address: string` 
+        Domain name or IP address of wireguard server.
+
+      * `port: string` 
+        Wireguard server port
+
+    * `peer_params: dict` 
+      Parameters of wireguard server.
+      
+      * `address: string` 
+        Peer IP address
+
+      * `mask: string` 
+        Peer IP-mask. In short-notation like `24`.
+
+      * `private_key: string` 
+        Private key path.
+
+      * `public_key: string` 
+        Public key path.
+
+      * `preshared_key: string` 
+        Public key path.
+
+  Full example: [defaults/main.yml](defaults/main.yml).
+
 Instalation
 -----------
 

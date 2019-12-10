@@ -9,7 +9,7 @@ DNS = {{ server_params.dns_address }}
 
 [Peer]
 PublicKey = {{ lookup('pipe', 'ansible-vault decrypt --output=-' + peer_params.public_key ) }}
-AllowedIPs = {{ peer_params.allowed_ips | join(', ') }}
+AllowedIPs = 0.0.0.0/0
 {%- if peer.preshared_key is defined -%}
 PresharedKey = {{ lookup('pipe', 'ansible-vault decrypt --output=-' + peer_params.preshared_key ) }}
 {% endif %}
